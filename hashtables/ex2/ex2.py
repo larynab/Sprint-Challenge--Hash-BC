@@ -45,19 +45,19 @@ def reconstruct_trip(tickets, length):
     #     route[i] = hash[route[i-1]]
 
     for ticket in tickets:
-
+        #need to use the fancy hash table functions
         hash_table_insert(hash, ticket.source, ticket.destination)
-        
+        #begin route!
         start = hash_table_retrieve(hash, 'NONE')
-
+        #make sure it is at 0
         route[0] = start
-
-    for i, r in enumerate(route):
-
+    #let get them routes to be nodes
+    for i, route_node in enumerate(route):
+        #end and retry
         if i + 1 > len(route) - 1:
             break
-
-        route[i + 1] = hash_table_retrieve(hash, r)
+        #get them out of there!
+        route[i + 1] = hash_table_retrieve(hash, route_node)
 
     return route
 
