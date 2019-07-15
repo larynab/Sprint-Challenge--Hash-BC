@@ -12,12 +12,55 @@ class Ticket:
         self.destination = destination
 
 
-def reconstruct_trip(tickets, length):
-    hashtable = HashTable(length)
-    route = [None] * length
+tickets = [
+  ['PIT', 'ORD'],
+  ['XNA', 'CID'],
+  ['SFO', 'BHM'],
+  ['FLG', 'XNA'],
+  [None, 'LAX'], 
+  ['LAX', 'SFO'],
+  ['CID', 'SLC'],
+  ['ORD', None],
+  ['SLC', 'PIT'],
+  ['BHM', 'FLG'],
+]
 
-    """
-    YOUR CODE HERE
-    """
+def reconstruct_trip(tickets, length):
+    hash = HashTable(length)
+    # hash = {}
+    route = [None] * length
+    # route = [None] * (len(tickets)-1)
+
+
+    # for ticket in tickets:
+    #     if tickets[0] == "NONE":
+    #         route[0] = tickets[1]
+
+    #     hash[tickets[0]] = tickets[1]
+
+    # print(hash)
+    # print(route)
+
+    # for i in range(1, len(tickets)-1):
+    #     route[i] = hash[route[i-1]]
+
+    for ticket in tickets:
+        #need to use the fancy hash table functions
+        hash_table_insert(hash, ticket.source, ticket.destination)
+        #begin route!
+        start = hash_table_retrieve(hash, 'NONE')
+        #make sure it is at 0
+        route[0] = start
+    #let get them routes to be nodes
+    for i, route_node in enumerate(route):
+        #end and retry
+        if i + 1 > len(route) - 1:
+            break
+        #get them out of there!
+        route[i + 1] = hash_table_retrieve(hash, route_node)
 
     return route
+
+# print(reconstruct_trip(tickets))
+
+
